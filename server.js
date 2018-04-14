@@ -9,7 +9,7 @@ passport.serializeUser(function(user, done) {
     done(null, user);
 });
 
-passport,deserializeUser(function(obj, done) {
+passport.deserializeUser(function(obj, done) {
    done(null, obj);
 });
 
@@ -27,28 +27,28 @@ passport.use(new GoogleStrategy ({
     }
 ));
 
-app.set('viev engine', 'pug');
+app.set('view engine', 'pug');
 app.set('views', './views');
 app.use(passport.initialize());
 app.use(passport.session());
 
 //app routes
 app.get('/', function(req, res) {
-    res.render('index', {user: req.user});
+    res.render('views/index', {user: req.user});
 });
 
 app.get('/logged', function(req, res) {
-    res.render('logged', {user: googleProfile });
+    res.render('views/logged', {user: googleProfile });
 });
 
 //Pasport routes
 app.get('auth google',
-passport.autthenticale('google', {
+passport.authenticate('google', {
 scope : ['profile', 'email']
 }));
 
 app.get('/auth/google/callback',
-    passport.authemticate('google', {
+    passport.authenticate('google', {
         successRedirect : 'logged',
         failureRedirect: '/' 
 }));
