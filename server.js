@@ -34,11 +34,11 @@ app.use(passport.session());
 
 //app routes
 app.get('/', function(req, res) {
-    res.render('views/index', {user: req.user});
+    res.render('index', {user: req.user});
 });
 
 app.get('/logged', function(req, res) {
-    res.render('views/logged', {user: googleProfile });
+    res.render('logged', {user: googleProfile });
 });
 
 //Pasport routes
