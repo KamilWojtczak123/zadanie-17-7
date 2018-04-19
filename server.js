@@ -42,7 +42,7 @@ app.get('/logged', function(req, res) {
 });
 
 //Pasport routes
-app.get('auth google',
+app.get('auth/google',
 passport.authenticate('google', {
 scope : ['profile', 'email']
 }));
