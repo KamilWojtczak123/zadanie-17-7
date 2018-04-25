@@ -14,16 +14,16 @@ passport.deserializeUser(function(obj, done) {
 });
 
 passport.use(new GoogleStrategy ({
-    clientID: config.GOOGLE_CLIENT_ID,
-    clientSecret: config.GOOGLE_CLIENT_SECRET,
-    CALLBACK_URL: config.CALLBACK_URL
+        clientID: config.GOOGLE_CLIENT_ID,
+        clientSecret: config.GOOGLE_CLIENT_SECRET,
+        callbackURL: config.CALLBACK_URL
     },
     function(accessToken, refreshToken,profile, cb) {
         googleProfile = {
             id: profile.id,
-            displayName: prpfile.displayName
+            displayName: profile.displayName
         },
-    cb(null, profile);
+        cb(null, profile);
     }
 ));
 
@@ -38,18 +38,19 @@ app.get('/', function(req, res) {
 });
 
 app.get('/logged', function(req, res) {
-    res.render('logged', {user: googleProfile });
+    res.render('logged', { user: googleProfile });
 });
 
 //Pasport routes
-app.get('auth/google',
-passport.authenticate('google', {
-scope : ['profile', 'email']
-}));
+app.get('/auth/google',
+    passport.authenticate('google', {
+        scope : ['profile', 'email']
+    })
+);
 
 app.get('/auth/google/callback',
     passport.authenticate('google', {
-        successRedirect : 'logged',
+        successRedirect : '/logged',
         failureRedirect: '/' 
 }));
 
